@@ -1,0 +1,43 @@
+Los modelos funcionan de la siguiente manera:
+
+# Example 1: Load H1 model (TravelledDistance)
+model_h1 = pickle.load(open('models/random_forest_h1.pkl', 'rb'))
+sample_data_h1 = np.array([[2500000]])  # TravelledDistance value
+prediction_h1 = model_h1.predict(sample_data_h1)
+probability_h1 = model_h1.predict_proba(sample_data_h1)
+
+# Example 2: Load H2 model (TeamStartingEquipmentValue)
+model_h2 = pickle.load(open('models/random_forest_h2.pkl', 'rb'))
+sample_data_h2 = np.array([[15000]])  # TeamStartingEquipmentValue
+prediction_h2 = model_h2.predict(sample_data_h2)
+probability_h2 = model_h2.predict_proba(sample_data_h2)
+
+# Example 3: Load H3 model (Combined features)
+model_h3 = pickle.load(open('models/random_forest_h3.pkl', 'rb'))
+sample_data_h3 = np.array([[15000, 2, 1]])  # [TeamStartingEquipmentValue, RoundKills, Survived]
+prediction_h3 = model_h3.predict(sample_data_h3)
+probability_h3 = model_h3.predict_proba(sample_data_h3)
+
+# Results interpretation: 0 = Round Won, 1 = Round Lost
+```
+
+### Model Performance Summary
+
+**Random Forest H1 (TravelledDistance):**
+- Features: TravelledDistance
+- Target: RoundWinner
+- Use case: Predict round outcome based on player movement
+
+**Random Forest H2 (TeamStartingEquipmentValue):**
+- Features: TeamStartingEquipmentValue
+- Target: RoundWinner
+- Use case: Predict round outcome based on team economy
+
+**Random Forest H3 (Combined Features):**
+- Features: TeamStartingEquipmentValue, RoundKills, Survived
+- Target: RoundWinner
+- Use case: Comprehensive round outcome prediction
+
+All models output: 0 = Round Won, 1 = Round Lost
+"""
+

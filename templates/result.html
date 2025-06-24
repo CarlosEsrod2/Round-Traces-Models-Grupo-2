@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results - Round Traces Models</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .result-card {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+        
+        .prediction-result {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .prediction-result.win {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+        
+        .prediction-result.loss {
+            background: linear-gradient(135deg, #f44336, #da190b);
+            color: white;
+        }
+        
+        .prediction-result.error {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: white;
+        }
+        
+        .model-info {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .model-name {
+            font-weight: bold;
+            color: #1976d2;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .features-used {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .probability-section {
+            background: #fff3e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .probability-title {
+            font-weight: bold;
+            color: #f57c00;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .probability-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #f57c00;
+        }
+        
+        .probability-label {
+            font-weight: bold;
+        }
+        
+        .probability-value {
+            color: #f57c00;
+            font-weight: bold;
+        }
+        
+        .back-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Prediction Results</h1>
+        
+        <div class="result-card">
+            <div class="prediction-result {{ result_class }}">
+                <span class="icon">
+                    {% if result_class == 'win' %}🏆
+                    {% elif result_class == 'loss' %}❌
+                    {% elif result_class == 'error' %}⚠️
+                    {% else %}❓{% endif %}
+                </span>
+                {{ prediction }}
+            </div>
+            
+            {% if model_name %}
+            <div class="model-info">
+                <div class="model-name">📊 Model Used: {{ model_name }}</div>
+                <div class="features-used">🔧 Features: {{ features_used }}</div>
+            </div>
+            {% endif %}
+            
+            {% if probability_won and probability_lost %}
+            <div class="probability-section">
+                <div class="probability-title">📈 Prediction Probabilities</div>
+                <div class="probability-item">
+                    <span class="probability-label">🏆 Round Won:</span>
+                    <span class="probability-value">{{ probability_won }}</span>
+                </div>
+                <div class="probability-item">
+                    <span class="probability-label">❌ Round Lost:</span>
+                    <span class="probability-value">{{ probability_lost }}</span>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <a href="/" class="back-button">🔄 Make Another Prediction</a>
+    </div>
+</body>
+</html>

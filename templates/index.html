@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round Traces Prediction Models</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .model-selector {
+            margin-bottom: 30px;
+        }
+        
+        .main-selector {
+            margin-bottom: 30px;
+        }
+        
+        .analysis-card {
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .analysis-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .analysis-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 100%);
+        }
+        
+        .analysis-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .analysis-description {
+            color: #666;
+            font-size: 1em;
+        }
+        
+        .analysis-section {
+            margin-top: 30px;
+            display: none;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+        
+        .analysis-section.active {
+            display: block;
+        }
+        
+        .analysis-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .coming-soon {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .coming-soon h3 {
+            color: #888;
+            margin-bottom: 15px;
+        }
+        
+        .model-card {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .model-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .model-card.selected {
+            border-color: #667eea;
+            background-color: #f8f9ff;
+        }
+        
+        .model-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .model-description {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .form-section {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .help-text {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Round Traces Prediction Models</h1>
+        
+        <div class="main-selector">
+            <h3>Select Analysis Type:</h3>
+            
+            <div class="analysis-card" onclick="selectAnalysis('clasificacion')">
+                <div class="analysis-title">📊 Clasificación</div>
+                <div class="analysis-description">Predict round outcome (Win/Loss) using classification models</div>
+            </div>
+            
+            <div class="analysis-card" onclick="selectAnalysis('regresion')">
+                <div class="analysis-title">📈 Regresión</div>
+                <div class="analysis-description">Predict continuous values using regression models (Coming Soon)</div>
+            </div>
+        </div>
+        
+        <!-- Clasificación Section -->
+        <div class="analysis-section" id="clasificacion-section">
+            <h2>Classification Models</h2>
+            <div class="model-selector">
+                <h3>Select a Prediction Model:</h3>
+                
+                <div class="model-card" onclick="selectModel('h3_clasificacion')">
+                    <input type="radio" name="model_choice" value="h3_clasificacion" id="model_h3_clasificacion" style="display: none;">
+                    <div class="model-title">H3 Model - Comprehensive Classification</div>
+                    <div class="model-description">Predicts round outcome using multiple features: equipment value, kills, and survival</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Regresión Section -->
+        <div class="analysis-section" id="regresion-section">
+            <h2>Regression Models</h2>
+            <div class="coming-soon">
+                <h3>🚧 Coming Soon</h3>
+                <p>Regression models are under development and will be available soon.</p>
+            </div>
+        </div>
+        
+        <form action="/result" method="POST" id="prediction-form">
+            <input type="hidden" name="model_type" id="selected_model">
+            
+            <!-- H3 Clasificación Form -->
+            <div class="form-section" id="h3_clasificacion-form">
+                <h3>Comprehensive Classification Analysis</h3>
+                <div class="form-group">
+                    <label for="team_equipment_value_h3">Team Starting Equipment Value:</label>
+                    <input type="number" id="team_equipment_value_h3" name="team_equipment_value_h3" step="any" min="0">
+                    <div class="help-text">Enter the team's starting equipment value (e.g., 15000)</div>
+                </div>
+                <div class="form-group">
+                    <label for="round_kills">Round Kills:</label>
+                    <input type="number" id="round_kills" name="round_kills" step="1" min="0">
+                    <div class="help-text">Enter the number of kills in the round (e.g., 2)</div>
+                </div>
+                <div class="form-group">
+                    <label for="survived">Survived:</label>
+                    <input type="number" id="survived" name="survived" step="1" min="0" max="1">
+                    <div class="help-text">Enter 1 if survived, 0 if not survived</div>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submit-btn" style="display: none;">🚀 Predict Round Outcome</button>
+        </form>
+    </div>
+
+    <script>
+        function selectAnalysis(analysisType) {
+            // Remove selected class from all analysis cards
+            document.querySelectorAll('.analysis-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked card
+            event.currentTarget.classList.add('selected');
+            
+            // Hide all analysis sections
+            document.querySelectorAll('.analysis-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected analysis section
+            document.getElementById(analysisType + '-section').classList.add('active');
+            
+            // Hide form and submit button
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('submit-btn').style.display = 'none';
+            
+            // Remove model selections
+            document.querySelectorAll('.model-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+        }
+        
+        function selectModel(modelType) {
+            // Remove selected class from all model cards
+            document.querySelectorAll('.model-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked card
+            event.currentTarget.classList.add('selected');
+            
+            // Remove required attribute from all form inputs
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                input.removeAttribute('required');
+            });
+            
+            // Hide all form sections
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected form section
+            document.getElementById(modelType + '-form').classList.add('active');
+            
+            // Add required attribute to inputs in the active form section
+            document.querySelectorAll('#' + modelType + '-form input[type="number"]').forEach(input => {
+                input.setAttribute('required', 'required');
+            });
+            
+            // Set hidden input value
+            document.getElementById('selected_model').value = modelType;
+            
+            // Show submit button
+            document.getElementById('submit-btn').style.display = 'block';
+            
+            // Check the corresponding radio button
+            document.getElementById('model_' + modelType).checked = true;
+        }
+    </script>
+</body>
+</html>
