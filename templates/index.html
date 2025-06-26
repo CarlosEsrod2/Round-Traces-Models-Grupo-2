@@ -150,7 +150,7 @@
             color: #333;
         }
         
-        input[type="number"] {
+        input[type="number"], select {
             width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
@@ -159,7 +159,7 @@
             transition: border-color 0.3s;
         }
         
-        input[type="number"]:focus {
+        input[type="number"]:focus, select:focus {
             outline: none;
             border-color: #667eea;
         }
@@ -184,6 +184,16 @@
             font-size: 0.8em;
             color: #666;
             margin-top: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
         }
     </style>
 </head>
@@ -222,9 +232,14 @@
         <!-- Regresión Section -->
         <div class="analysis-section" id="regresion-section">
             <h2>Modelos de Regresión</h2>
-            <div class="coming-soon">
-                <h3>🚧 Próximamente</h3>
-                <p>Los modelos de regresión están en desarrollo y estarán disponibles pronto.</p>
+            <div class="model-selector">
+                <h3>Selecciona un Modelo de Predicción:</h3>
+                
+                <div class="model-card" onclick="selectModel('h1_regresion')">
+                    <input type="radio" name="model_choice" value="h1_regresion" id="model_h1_regresion" style="display: none;">
+                    <div class="model-title">Modelo H1 - Regresión Completa</div>
+                    <div class="model-description">Predice valores continuos usando todas las características disponibles del dataset</div>
+                </div>
             </div>
         </div>
         
@@ -248,6 +263,154 @@
                     <label for="survived">Supervivencia:</label>
                     <input type="number" id="survived" name="survived" step="1" min="0" max="1">
                     <div class="help-text">Ingresa 1 si sobrevivió, 0 si no sobrevivió</div>
+                </div>
+            </div>
+            
+            <!-- H1 Regresión Form -->
+            <div class="form-section" id="h1_regresion-form">
+                <h3>Análisis de Regresión</h3>
+                
+                <div class="grid">
+                    <div class="form-group">
+                        <label for="InternalTeamId">ID Interno del Equipo:</label>
+                        <input type="number" name="InternalTeamId" id="InternalTeamId">
+                    </div>
+                    <div class="form-group">
+                        <label for="MatchId">ID del Partido:</label>
+                        <input type="number" name="MatchId" id="MatchId">
+                    </div>
+                    <div class="form-group">
+                        <label for="RoundId">ID de la Ronda:</label>
+                        <input type="number" name="RoundId" id="RoundId">
+                    </div>
+                    <div class="form-group">
+                        <label for="RoundWinner">Ganador de la Ronda (0/1):</label>
+                        <input type="number" name="RoundWinner" id="RoundWinner" min="0" max="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="MatchWinner">Ganador del Partido (0/1):</label>
+                        <input type="number" name="MatchWinner" id="MatchWinner" min="0" max="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="Survived">Sobrevivió (0/1):</label>
+                        <input type="number" name="Survived" id="Survived" min="0" max="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="AbnormalMatch">Partido Anormal (0/1):</label>
+                        <input type="number" name="AbnormalMatch" id="AbnormalMatch" min="0" max="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="TimeAlive">Tiempo de Supervivencia:</label>
+                        <input type="number" name="TimeAlive" id="TimeAlive" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="TravelledDistance">Distancia Recorrida:</label>
+                        <input type="number" name="TravelledDistance" id="TravelledDistance" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="RLethalGrenadesThrown">Granadas Letales Lanzadas:</label>
+                        <input type="number" name="RLethalGrenadesThrown" id="RLethalGrenadesThrown" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="RNonLethalGrenadesThrown">Granadas No Letales Lanzadas:</label>
+                        <input type="number" name="RNonLethalGrenadesThrown" id="RNonLethalGrenadesThrown" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="PrimaryAssaultRifle">Rifle de Asalto Primario (0/1):</label>
+                        <input type="number" name="PrimaryAssaultRifle" id="PrimaryAssaultRifle" min="0" max="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="PrimarySniperRifle">Rifle Francotirador Primario (0/1):</label>
+                        <input type="number" name="PrimarySniperRifle" id="PrimarySniperRifle" min="0" max="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="PrimaryHeavy">Arma Pesada Primaria (0/1):</label>
+                        <input type="number" name="PrimaryHeavy" id="PrimaryHeavy" min="0" max="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="PrimarySMG">SMG Primaria (0/1):</label>
+                        <input type="number" name="PrimarySMG" id="PrimarySMG" min="0" max="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="PrimaryPistol">Pistola Primaria (0/1):</label>
+                        <input type="number" name="PrimaryPistol" id="PrimaryPistol" min="0" max="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="FirstKillTime">Tiempo del Primer Asesinato:</label>
+                        <input type="number" name="FirstKillTime" id="FirstKillTime" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="RoundKills">Eliminaciones en la Ronda:</label>
+                        <input type="number" name="RoundKills" id="RoundKills" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="RoundAssists">Asistencias en la Ronda:</label>
+                        <input type="number" name="RoundAssists" id="RoundAssists" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="RoundHeadshots">Headshots en la Ronda:</label>
+                        <input type="number" name="RoundHeadshots" id="RoundHeadshots" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="RoundFlankKills">Eliminaciones por Flanqueo en la Ronda:</label>
+                        <input type="number" name="RoundFlankKills" id="RoundFlankKills" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="RoundStartingEquipmentValue">Valor del Equipo Inicial en la Ronda:</label>
+                        <input type="number" name="RoundStartingEquipmentValue" id="RoundStartingEquipmentValue" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="TeamStartingEquipmentValue">Valor del Equipo Inicial del Equipo:</label>
+                        <input type="number" name="TeamStartingEquipmentValue" id="TeamStartingEquipmentValue" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="MatchKills">Eliminaciones en el Partido:</label>
+                        <input type="number" name="MatchKills" id="MatchKills" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="MatchFlankKills">Eliminaciones por Flanqueo en el Partido:</label>
+                        <input type="number" name="MatchFlankKills" id="MatchFlankKills" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="MatchAssists">Asistencias en el Partido:</label>
+                        <input type="number" name="MatchAssists" id="MatchAssists" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="MatchHeadshots">Headshots en el Partido:</label>
+                        <input type="number" name="MatchHeadshots" id="MatchHeadshots" min="0">
+                    </div>
+                </div>
+
+                <h4>Mapas (solo uno debe ser 1, el resto 0):</h4>
+                <div class="grid">
+                    <div class="form-group">
+                        <label for="Map_de_dust2">Map: de_dust2 (0/1):</label>
+                        <input type="number" name="Map_de_dust2" id="Map_de_dust2" min="0" max="1" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="Map_de_inferno">Map: de_inferno (0/1):</label>
+                        <input type="number" name="Map_de_inferno" id="Map_de_inferno" min="0" max="1" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="Map_de_mirage">Map: de_mirage (0/1):</label>
+                        <input type="number" name="Map_de_mirage" id="Map_de_mirage" min="0" max="1" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="Map_de_nuke">Map: de_nuke (0/1):</label>
+                        <input type="number" name="Map_de_nuke" id="Map_de_nuke" min="0" max="1" value="0">
+                    </div>
+                </div>
+
+                <h4>Equipo (solo uno debe ser 1, el resto 0):</h4>
+                <div class="grid">
+                    <div class="form-group">
+                        <label for="Team_CounterTerrorist">Team: Counter-Terrorist (0/1):</label>
+                        <input type="number" name="Team_CounterTerrorist" id="Team_CounterTerrorist" min="0" max="1" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="Team_Terrorist">Team: Terrorist (0/1):</label>
+                        <input type="number" name="Team_Terrorist" id="Team_Terrorist" min="0" max="1" value="0">
+                    </div>
                 </div>
             </div>
             
@@ -320,6 +483,25 @@
             
             // Check the corresponding radio button
             document.getElementById('model_' + modelType).checked = true;
+        }
+        
+        function toggleModelFields() {
+            const modelType = document.getElementById('model_type').value;
+            const h3Fields = document.getElementById('h3_fields');
+            const h1Fields = document.getElementById('h1_fields');
+            
+            // Hide all sections first
+            h3Fields.classList.add('hidden');
+            h1Fields.classList.add('hidden');
+            
+            // Show relevant section
+            if (modelType === 'h3_clasificacion') {
+                h3Fields.classList.remove('hidden');
+                h3Fields.classList.add('active');
+            } else if (modelType === 'h1_regresion') {
+                h1Fields.classList.remove('hidden');
+                h1Fields.classList.add('active');
+            }
         }
     </script>
 </body>
