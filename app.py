@@ -36,11 +36,11 @@ def result():
                 survived_str = form_data.get('survived', '').strip()
                 
                 if not team_equipment_value_str:
-                    raise ValueError("Team Starting Equipment Value is required")
+                    raise ValueError("El Valor del Equipo Inicial del Equipo es requerido")
                 if not round_kills_str:
-                    raise ValueError("Round Kills is required")
+                    raise ValueError("Las Eliminaciones en la Ronda son requeridas")
                 if not survived_str:
-                    raise ValueError("Survived field is required")
+                    raise ValueError("El campo Supervivencia es requerido")
                 
                 team_equipment_value = float(team_equipment_value_str)
                 round_kills = int(round_kills_str)
@@ -48,15 +48,15 @@ def result():
                 
                 # Validate survived value (should be 0 or 1)
                 if survived not in [0, 1]:
-                    raise ValueError("Survived must be 0 or 1")
+                    raise ValueError("Supervivencia debe ser 0 o 1")
                 
                 prediction, probability = predict_h3_clasificacion(team_equipment_value, round_kills, survived)
-                model_name = "H3 (Classification - Combined Features)"
-                features_used = f"TeamStartingEquipmentValue: {team_equipment_value}, RoundKills: {round_kills}, Survived: {survived}"
+                model_name = "H3 (Clasificación - Características Combinadas)"
+                features_used = f"Valor del Equipo Inicial: {team_equipment_value}, Eliminaciones: {round_kills}, Supervivencia: {survived}"
             
             else:
                 return render_template("result.html", 
-                                     prediction="Error: Invalid model type selected",
+                                     prediction="Error: Tipo de modelo inválido seleccionado",
                                      model_name="",
                                      features_used="",
                                      probability_won="",
@@ -64,13 +64,13 @@ def result():
             
             # Interpret results: 0 = Round Won, 1 = Round Lost
             if int(prediction) == 0:
-                result_text = 'Round Won'
+                result_text = 'Ronda Ganada'
                 result_class = 'win'
             elif int(prediction) == 1:
-                result_text = 'Round Lost'
+                result_text = 'Ronda Perdida'
                 result_class = 'loss'
             else:
-                result_text = f'Unknown result: {int(prediction)}'
+                result_text = f'Resultado desconocido: {int(prediction)}'
                 result_class = 'unknown'
             
             # Probability formatting
@@ -78,7 +78,7 @@ def result():
             prob_lost = f"{probability[1]:.2%}"
             
         except (ValueError, KeyError) as e:
-            result_text = f'Error in data format: {str(e)}'
+            result_text = f'Error en formato de datos: {str(e)}'
             model_name = ""
             features_used = ""
             prob_won = ""

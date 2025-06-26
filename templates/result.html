@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prediction Results - Round Traces Models</title>
+    <title>Resultados de Predicción - Modelos Round Traces</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -139,7 +139,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎯 Prediction Results</h1>
+        <h1>🎯 Resultados de Predicción</h1>
         
         <div class="result-card">
             <div class="prediction-result {{ result_class }}">
@@ -154,27 +154,27 @@
             
             {% if model_name %}
             <div class="model-info">
-                <div class="model-name">📊 Model Used: {{ model_name }}</div>
-                <div class="features-used">🔧 Features: {{ features_used }}</div>
+                <div class="model-name">📊 Modelo Utilizado: {{ model_name }}</div>
+                <div class="features-used">🔧 Características: {{ features_used }}</div>
             </div>
             {% endif %}
             
             {% if probability_won and probability_lost %}
             <div class="probability-section">
-                <div class="probability-title">📈 Prediction Probabilities</div>
+                <div class="probability-title">📈 Probabilidades de Predicción</div>
                 <div class="probability-item">
-                    <span class="probability-label">🏆 Round Won:</span>
+                    <span class="probability-label">🏆 Ronda Ganada:</span>
                     <span class="probability-value">{{ probability_won }}</span>
                 </div>
                 <div class="probability-item">
-                    <span class="probability-label">❌ Round Lost:</span>
+                    <span class="probability-label">❌ Ronda Perdida:</span>
                     <span class="probability-value">{{ probability_lost }}</span>
                 </div>
             </div>
             {% endif %}
         </div>
         
-        <a href="/" class="back-button">🔄 Make Another Prediction</a>
+        <a href="/" class="back-button">🔄 Hacer Otra Predicción</a>
     </div>
 </body>
 </html>

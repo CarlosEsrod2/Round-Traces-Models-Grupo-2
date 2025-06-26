@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Round Traces Prediction Models</title>
+    <title>Modelos de Predicción Round Traces</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -189,42 +189,42 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎯 Round Traces Prediction Models</h1>
+        <h1>🎯 Modelos de Predicción Round Traces</h1>
         
         <div class="main-selector">
-            <h3>Select Analysis Type:</h3>
+            <h3>Selecciona el Tipo de Análisis:</h3>
             
             <div class="analysis-card" onclick="selectAnalysis('clasificacion')">
                 <div class="analysis-title">📊 Clasificación</div>
-                <div class="analysis-description">Predict round outcome (Win/Loss) using classification models</div>
+                <div class="analysis-description">Predice el resultado de la ronda (Victoria/Derrota) usando modelos de clasificación</div>
             </div>
             
             <div class="analysis-card" onclick="selectAnalysis('regresion')">
                 <div class="analysis-title">📈 Regresión</div>
-                <div class="analysis-description">Predict continuous values using regression models (Coming Soon)</div>
+                <div class="analysis-description">Predice valores continuos usando modelos de regresión (Próximamente)</div>
             </div>
         </div>
         
         <!-- Clasificación Section -->
         <div class="analysis-section" id="clasificacion-section">
-            <h2>Classification Models</h2>
+            <h2>Modelos de Clasificación</h2>
             <div class="model-selector">
-                <h3>Select a Prediction Model:</h3>
+                <h3>Selecciona un Modelo de Predicción:</h3>
                 
                 <div class="model-card" onclick="selectModel('h3_clasificacion')">
                     <input type="radio" name="model_choice" value="h3_clasificacion" id="model_h3_clasificacion" style="display: none;">
-                    <div class="model-title">H3 Model - Comprehensive Classification</div>
-                    <div class="model-description">Predicts round outcome using multiple features: equipment value, kills, and survival</div>
+                    <div class="model-title">Modelo H3 - Clasificación Integral</div>
+                    <div class="model-description">Predice el resultado de la ronda usando múltiples características: valor del equipo, eliminaciones y supervivencia</div>
                 </div>
             </div>
         </div>
         
         <!-- Regresión Section -->
         <div class="analysis-section" id="regresion-section">
-            <h2>Regression Models</h2>
+            <h2>Modelos de Regresión</h2>
             <div class="coming-soon">
-                <h3>🚧 Coming Soon</h3>
-                <p>Regression models are under development and will be available soon.</p>
+                <h3>🚧 Próximamente</h3>
+                <p>Los modelos de regresión están en desarrollo y estarán disponibles pronto.</p>
             </div>
         </div>
         
@@ -233,25 +233,25 @@
             
             <!-- H3 Clasificación Form -->
             <div class="form-section" id="h3_clasificacion-form">
-                <h3>Comprehensive Classification Analysis</h3>
+                <h3>Análisis de Clasificación Integral</h3>
                 <div class="form-group">
-                    <label for="team_equipment_value_h3">Team Starting Equipment Value:</label>
+                    <label for="team_equipment_value_h3">Valor del Equipo Inicial del Equipo:</label>
                     <input type="number" id="team_equipment_value_h3" name="team_equipment_value_h3" step="any" min="0">
-                    <div class="help-text">Enter the team's starting equipment value (e.g., 15000)</div>
+                    <div class="help-text">Ingresa el valor del equipo inicial del equipo (ej. 15000)</div>
                 </div>
                 <div class="form-group">
-                    <label for="round_kills">Round Kills:</label>
+                    <label for="round_kills">Eliminaciones en la Ronda:</label>
                     <input type="number" id="round_kills" name="round_kills" step="1" min="0">
-                    <div class="help-text">Enter the number of kills in the round (e.g., 2)</div>
+                    <div class="help-text">Ingresa el número de eliminaciones en la ronda (ej. 2)</div>
                 </div>
                 <div class="form-group">
-                    <label for="survived">Survived:</label>
+                    <label for="survived">Supervivencia:</label>
                     <input type="number" id="survived" name="survived" step="1" min="0" max="1">
-                    <div class="help-text">Enter 1 if survived, 0 if not survived</div>
+                    <div class="help-text">Ingresa 1 si sobrevivió, 0 si no sobrevivió</div>
                 </div>
             </div>
             
-            <button type="submit" class="submit-btn" id="submit-btn" style="display: none;">🚀 Predict Round Outcome</button>
+            <button type="submit" class="submit-btn" id="submit-btn" style="display: none;">🚀 Predecir Resultado de la Ronda</button>
         </form>
     </div>
 
