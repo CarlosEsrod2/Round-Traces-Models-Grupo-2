@@ -114,7 +114,7 @@ def result():
                 model_name = "H1 (Regresión - Todas las características)"
                 features_used = "Todas las características del modelo H1"
                 
-                result_text = f'Valor predicho: {prediction:.2f}'
+                result_text = f'Valor predicho: {round(prediction)}'
                 result_class = 'regression'
                 prob_won = ""
                 prob_lost = ""
